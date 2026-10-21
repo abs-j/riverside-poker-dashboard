@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Riverside Poker Dashboard</title>
+    <meta name="description" content="Standings, game history and the live ledger for the Riverside Poker Club." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Riverside Poker Dashboard" />
+    <meta property="og:description" content="Standings, game history and the live ledger for the Riverside Poker Club." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Riverside Poker Dashboard" />
+    <meta name="twitter:description" content="Standings, game history and the live ledger for the Riverside Poker Club." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#100a19" />
+    <script>
+      // Dark is the default on every page (sign-in, admin and dashboard). Only an explicit
+      // "light" choice is remembered. Runs before first paint so there is no white flash.
+      (function () {
+        var dark = true;
+        try { dark = localStorage.getItem("poker-theme") !== "light"; } catch (e) {}
+        if (dark) document.documentElement.classList.add("dark");
+        else document.querySelector('meta[name="theme-color"]').setAttribute("content", "#f8f6fc");
+      })();
+    </script>
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Poker" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

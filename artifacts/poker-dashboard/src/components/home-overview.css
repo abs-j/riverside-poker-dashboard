@@ -1,0 +1,99 @@
+/* Home overview block.
+ *
+ * Built on the site's theme tokens (--card, --border, --primary, --chart-1 …) so it matches
+ * the other sections and follows light/dark mode. Only the hero card uses its own deep-indigo
+ * surface, which reads the same in both themes.
+ */
+.story-first {
+  --sf-muted: hsl(var(--muted-foreground));
+  --sf-card: hsl(var(--card));
+  --sf-line: hsl(var(--border));
+  --sf-tint: hsl(var(--secondary) / 0.55);
+  --sf-primary: hsl(var(--primary));
+  --sf-hero: linear-gradient(135deg, hsl(262 58% 26%), hsl(284 55% 36%) 55%, hsl(262 60% 30%));
+  --sf-green: hsl(var(--chart-1));
+  --sf-red: hsl(var(--destructive));
+  --sf-shadow: 0 14px 35px hsl(262 45% 22% / 0.09), 0 2px 5px hsl(262 45% 22% / 0.05);
+  --sf-radius: 1rem;
+  color: inherit;
+  font-family: var(--app-font-sans);
+}
+
+.story-first * { box-sizing: border-box; }
+.story-first button, .story-first select { font: inherit; }
+.story-first button:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+.sf-wrap { width: 100%; padding: 0; }
+
+/* Intro */
+.sf-intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 8px 0 18px; }
+.sf-kicker, .sf-label { margin: 0; font-family: var(--app-font-mono); font-size: 11px; line-height: 1.3; letter-spacing: .16em; text-transform: uppercase; color: var(--sf-muted); }
+.sf-intro h1 { margin: 8px 0 0; font-size: clamp(30px, 4.2vw, 44px); line-height: 1.05; letter-spacing: -.045em; font-weight: 600; }
+.sf-intro h1 em { color: var(--sf-primary); font-style: normal; }
+.sf-date-tag { display: flex; align-items: center; gap: 7px; white-space: nowrap; color: var(--sf-muted); font-size: 12px; }
+
+/* Hero and breakdown */
+.sf-story { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .8fr); gap: 16px; }
+.sf-hero-card { position: relative; overflow: hidden; min-height: 220px; border-radius: var(--sf-radius); padding: 24px 26px; color: #f4f2ff; background: var(--sf-hero); background-size: 180% 180%; animation: sf-drift 18s ease-in-out infinite alternate; box-shadow: var(--sf-shadow); }
+.sf-hero-card { transition: transform 0.25s ease-out; will-change: transform; }
+.sf-hero-card > *:not(.sf-blob) { position: relative; z-index: 1; }
+.sf-blob { position: absolute; z-index: 0; border-radius: 50%; filter: blur(44px); pointer-events: none; }
+.sf-blob-a { top: -70px; right: 12%; width: 260px; height: 260px; background: radial-gradient(closest-side, rgba(236, 130, 255, .55), transparent); animation: sf-float-a 14s ease-in-out infinite alternate; }
+.sf-blob-b { bottom: -90px; left: 8%; width: 300px; height: 300px; background: radial-gradient(closest-side, rgba(110, 90, 255, .5), transparent); animation: sf-float-b 17s ease-in-out infinite alternate; }
+@keyframes sf-float-a { from { transform: translate(0, 0) scale(1); } to { transform: translate(-60px, 40px) scale(1.2); } }
+@keyframes sf-float-b { from { transform: translate(0, 0) scale(1); } to { transform: translate(70px, -30px) scale(1.15); } }
+.sf-hero-card:after { content: ""; position: absolute; right: -55px; bottom: -120px; width: 300px; height: 300px; border: 1px solid rgba(255, 255, 255, .14); border-radius: 50%; box-shadow: 0 0 0 24px rgba(255, 255, 255, .025), 0 0 0 49px rgba(255, 255, 255, .022); pointer-events: none; }
+.sf-hero-card .sf-label { color: rgba(244, 242, 255, .72); }
+.sf-money { position: relative; z-index: 1; margin-top: 22px; font-family: var(--app-font-mono); font-size: clamp(43px, 6vw, 64px); letter-spacing: -.07em; line-height: 1; font-weight: 500; }
+.sf-hero-bottom { position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 20px; font-size: 12px; color: rgba(244, 242, 255, .82); }
+.sf-rank-pill { position: relative; overflow: hidden; display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px; padding: 6px 11px; color: #fff; background: rgba(255, 255, 255, .08); }
+.sf-rank-pill::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .3) 50%, transparent 70%); transform: translateX(-130%); animation: sf-pill-shimmer 5s ease-in-out 1.4s infinite; }
+@keyframes sf-drift { from { background-position: 0% 40%; } to { background-position: 100% 60%; } }
+@keyframes sf-pill-shimmer { 0%, 60% { transform: translateX(-130%); } 100% { transform: translateX(130%); } }
+.dark .story-first { --sf-hero: linear-gradient(135deg, hsl(262 60% 20%), hsl(288 52% 30%) 55%, hsl(262 62% 24%)); }
+@media (prefers-reduced-motion: reduce) { .sf-hero-card, .sf-rank-pill::after, .sf-blob { animation: none; transition: none; } }
+.sf-side-card { display: flex; flex-direction: column; justify-content: space-between; border: 1px solid var(--sf-line); border-radius: var(--sf-radius); padding: 22px; background: var(--sf-card); box-shadow: var(--sf-shadow); }
+.sf-side-card h2 { margin: 0; font-size: 18px; line-height: 1.25; letter-spacing: -.03em; font-weight: 600; }
+.sf-split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+.sf-split > div { padding: 12px; border-radius: 12px; background: var(--sf-tint); }
+.sf-split span { display: block; font-size: 11px; color: var(--sf-muted); }
+.sf-split strong { display: block; margin-top: 6px; font-family: var(--app-font-mono); font-size: 17px; font-weight: 600; }
+.sf-note { margin: 12px 0 0; color: var(--sf-muted); font-size: 11px; line-height: 1.5; }
+
+/* Standings + results row */
+.sf-content { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; }
+
+/* Standings list */
+.sf-ranking { padding: 0; }
+.sf-rank-row { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px 8px; border: 0; border-top: 1px solid var(--sf-line); background: transparent; cursor: pointer; }
+.sf-rank-row:hover { background: var(--sf-tint); }
+.sf-rank-row.is-member { margin: 2px 0; border: 1px solid hsl(var(--primary) / .3); border-radius: 11px; background: hsl(var(--primary) / .07); }
+.sf-rank-num { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: hsl(var(--secondary)); color: var(--sf-muted); font-family: var(--app-font-mono); font-size: 11px; }
+.sf-rank-row:first-child .sf-rank-num { background: hsl(var(--accent) / .25); color: hsl(var(--accent-foreground)); }
+.sf-rank-name { font-size: 13px; font-weight: 600; }
+.sf-you { margin-left: 6px; color: var(--sf-primary); font-family: var(--app-font-mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
+.sf-rank-value { font-family: var(--app-font-mono); font-size: 12px; font-weight: 600; white-space: nowrap; }
+.sf-positive { color: var(--sf-green); }
+.sf-negative { color: var(--sf-red); }
+
+/* On phones the cash / tournament split lives inside the hero card, not a card of its own. */
+.sf-split-inline { display: none; }
+@media (max-width: 760px) {
+  .sf-side-card { display: none; }
+  .sf-split-inline { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, .16); font-size: 12px; color: rgba(244, 242, 255, .78); }
+  .sf-split-inline strong { margin-left: 4px; font-family: var(--app-font-mono); color: #fff; font-weight: 600; }
+}
+
+@media (max-width: 760px) {
+  .sf-intro { align-items: start; flex-direction: column; gap: 12px; }
+  .sf-date-tag { align-self: flex-start; }
+  .sf-story, .sf-content { grid-template-columns: 1fr; }
+  .sf-hero-card { min-height: 190px; }
+}
+
+@media (max-width: 480px) {
+  .sf-hero-card { padding: 20px; }
+  .sf-money { font-size: 43px; }
+}
