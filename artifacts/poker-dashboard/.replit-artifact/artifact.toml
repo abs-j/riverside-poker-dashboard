@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Riverside Poker Dashboard"
+description = "An imported poker club portfolio demo with fictional players, games, standings, a live ledger and a guided tour. Runs entirely in the browser without a database or external services."
+version = "1.0.0"
+id = "artifacts/poker-dashboard"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24157
+
+[services.development]
+run = "pnpm --filter @workspace/poker-dashboard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/poker-dashboard", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/poker-dashboard/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24157"
+BASE_PATH = "/"

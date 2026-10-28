@@ -1,0 +1,1 @@
+- [Imported preview registration](imported-preview-registration.md) — preserve imported source when registering an existing app; folder moves can invalidate artifact registration.
