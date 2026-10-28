@@ -20,6 +20,16 @@ const demoBranding = (): Plugin => ({
       .replaceAll('Riverside Poker Dashboard', 'Riverside Poker Dashboard')
       .replaceAll('Riverside Poker Club', 'Riverside Poker Club'),
   closeBundle() {
+    // Static hosts may ignore the "send every path to index.html" rule, so each page the app
+    // links to gets its own copy of the shell. 404.html covers any other deep link.
+    const shell = path.resolve(import.meta.dirname, outDir, 'index.html');
+    if (fs.existsSync(shell)) {
+      for (const route of ['dashboard', 'public', 'admin']) {
+        fs.mkdirSync(path.resolve(import.meta.dirname, outDir, route), { recursive: true });
+        fs.copyFileSync(shell, path.resolve(import.meta.dirname, outDir, route, 'index.html'));
+      }
+      fs.copyFileSync(shell, path.resolve(import.meta.dirname, outDir, '404.html'));
+    }
     for (const file of ['manifest.webmanifest', 'sw.js']) {
       const target = path.resolve(import.meta.dirname, outDir, file);
       if (!fs.existsSync(target)) continue;
